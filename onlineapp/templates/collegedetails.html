@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Login{%endblock%}
+{% block content %}
+<body>
+<h1 style="color:green">{{college.name}} College Details</h1>
+{% if 'onlineapp.add_student' in user_permissions %}
+<form action="{% url 'onlineapp:student_form' college.id %}">
+        <input type="submit" value="Add Student" class="btn btn-success">
+    </form>
+{%endif%}
+<br/>
+<table class="table table-hover active">
+    <tr>
+        <th>Student ID</th>
+        <th>Name</th>
+        <th>Mocktest1 Total</th>
+    </tr>
+    {% for x in students %}
+    <tr >
+        <td>
+            {{x.id}}
+        </td>
+        <td>
+            {{x.name}}
+        </td>
+        <td>
+            {{x.mocktest1.total}}
+        </td>
+        {% if 'onlineapp.change_student' in user_permissions %}
+        <td><a href="{% url 'onlineapp:update_student' college.id  x.id %}">Edit</a></td>
+        {%endif%}
+        {% if 'onlineapp.delete_college' in user_permissions %}
+        <td><a href="{% url 'onlineapp:delete_student' college.id  x.id %}">Delete</a></td>
+        {%endif%}
+    </tr>
+    {% endfor %}
+</table>
+</body>
+{%endblock%}

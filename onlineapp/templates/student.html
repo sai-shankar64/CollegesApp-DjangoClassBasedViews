@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Details</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <style>
+        body{
+            text-align:center;
+        }
+        table{
+            border:1px solid black;
+            align-content: center;
+            margin: auto;
+        }
+        td{
+            border-left:1px solid black;
+            border-bottom:1px solid black;
+        }
+        tr:nth-child(even){
+            background-color: #f2f2f2;
+        }
+        td:hover{
+        color:red;
+        }
+    </style>
+</head>
+<body>
+<h1 style="color:cyan">Student Details</h1>
+    <table>
+        {%for s in sd%}
+        <tr>
+            <td>{{s.name}}</td>
+            <td>{{s.email}}</td>
+            <td>{{s.college__acronym}}</td>
+        </tr>
+        {%endfor%}
+    </table>
+</body>
+</html>

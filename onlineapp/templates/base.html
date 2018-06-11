@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <title>{% block title %}College App{%endblock%}</title>
+     <style>
+        header{
+            height:50px;
+            font-size:30px;
+        }
+    </style>
+</head>
+<header class="bg-primary text-white">
+    <div style="float:left">
+    College App
+    </div>
+
+    <div style=" float:right">
+        {% if request.user.is_authenticated%}
+    <a style="color:white" href="{%url 'onlineapp:logout' %}" >Logout</a>
+        {%endif%}
+        </div>
+
+</header>
+{%block content %}
+{% endblock %}
+</html>

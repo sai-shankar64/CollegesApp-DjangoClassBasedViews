@@ -1,0 +1,75 @@
+import os,sys,django
+os.environ['DJANGO_SETTINGS_MODULE'] = os.getcwd().split("\\")[-2]+'.settings'
+django.setup()
+
+from django.http import *
+from onlineapp.models import *
+from django.shortcuts import render,render_to_response
+import datetime
+# Create your views here.
+
+def testview(request):
+    # now=datetime.datetime.now()
+    with open("C://Users//saish//Desktop//Apps-Projects//onlineproject\onlineapp//res.html","r") as file:
+        return HttpResponse(file)
+    #return render_to_response('res.html')
+    # return "Hello World...!"
+
+def college1(request):
+    #colg=College.objects.values_list()
+    # res="<table>"
+    # for c in colg:
+    #     res+="<tr>"
+    #     for col in c:
+    #         res+="<td>"
+    #         res+=str(col)
+    #         res+="</td>"
+    #     res+="</tr>"
+    # res+="</table>"
+
+    # res=HttpResponse("Hello world")
+    # res.write("<h1>Hello world</h1>")
+    # res.write("<h1>Hello world</h1>")
+    return render_to_response('res.html')
+    # return HttpResponse(res)
+
+def college(request):
+    colg = College.objects.values()
+    return render_to_response('college.html',{'a':colg})
+
+def students(request):
+    return render_to_response('student.html',{'sd':Student.objects.values('name','email','college__acronym')})
+
+def mocktest1result(request):
+    marks_=MockTest1.objects.values_list()
+    return HttpResponse(marks_)
+
+def studentwithid(request,id):
+    res=Student.objects.filter(id=id).values('name','email','college__acronym')
+    if not len(res):
+        return HttpResponseNotFound('<h3 style="text-align:center">Student not found</h3>')
+    return render_to_response("student.html",{'sd':res})
+
+def studentwith_id(request):
+    dic=request.GET;
+    id=dic['id']
+    res = Student.objects.filter(id=id).values('name', 'email', 'college__acronym')
+    if not len(res):
+        return HttpResponseNotFound('<h3 style="text-align:center">Student not found</h3>')
+    return render_to_response("student.html",{'sd':res})
+
+def studenttotal(request):
+    return render_to_response('studenttotal.html', {'sd': Student.objects.values('id','name','email','college__acronym','mocktest1__total')})
+
+def collegeresult(request,colg):
+    context={'result':Student.objects.filter(college__acronym=colg).order_by('-mocktest1__total').values('name','email','db_folder','mocktest1__total'),'colg':colg.upper()}
+    return render_to_response('collegeresult.html',context)
+
+def testsession(request):
+    request.session.setdefault('count',0)
+    request.session['count']+=1
+    return HttpResponse("Session : "+str(request.session['count']))
+
+def exception(request):
+    raise ValueError
+    return HttpResponse("Exception")
