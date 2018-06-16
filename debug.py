@@ -13,4 +13,4 @@ manager=College.objects
 # for queryset in querysets:
 #     print(type(queryset).__name__,queryset)
 
-print(testview("nothing"))
+# print(testview("nothing"))

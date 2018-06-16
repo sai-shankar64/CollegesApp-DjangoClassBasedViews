@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First Panel</title>
+</head>
+<body>
+    <p>Hey, these are useful informations, I swear:</p>
+<ul>
+{% for info in infos %}
+    <li>Plop is {{ info.plop}}</li>
+{% endfor %}
+</ul>
+</body>
+</html>
